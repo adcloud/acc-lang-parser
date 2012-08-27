@@ -41,6 +41,12 @@ describe("accept-language http header parser", function () {
 				var result = extract_first_accept_language(acc_lang_header_content);
 				expect(result.language).toEqual("*");
 			});
+
+			it("should not have a locale in case of *", function () {
+				var acc_lang_header_content = "*";
+				var result = extract_first_accept_language(acc_lang_header_content);
+				expect(result.locale).toBeUndefined();
+			});
 		});
 
 		describe("when multiple languages are of interest extract_all_accept_languages", function () {
