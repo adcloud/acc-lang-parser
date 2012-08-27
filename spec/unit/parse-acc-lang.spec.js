@@ -89,14 +89,14 @@ describe("accept-language http header parser", function () {
 	});
 
 	describe("in case of missing headers extract_all_accept_languages", function () {
-		it("should be resilitent to undifined input", function () {
+		it("should be resilient to undefined input", function () {
 			var acc_lang_header_content;
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
 			expect(result).toBeUndefined();
 		});
 		
-		it("should be resilitent to empty headers", function () {
+		it("should be resilient to empty headers", function () {
 			var acc_lang_header_content = "";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
@@ -104,29 +104,36 @@ describe("accept-language http header parser", function () {
 		});
 	});
 
-	describe("in case of invalied headers extract_all_accept_languages", function () {
-		it("should be resilitent to chines jibberisch", function () {
+	describe("in case of invalid headers extract_all_accept_languages", function () {
+		it("should be resilient to chines jibberisch", function () {
 			var acc_lang_header_content = "8痂";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
 			expect(result).toBeUndefined();
 		});
 
-		it("should be resilitent to jibberisch", function () {
+		it("should be resilient to none 2-ALPHA languages like: ded", function () {
+			var acc_lang_header_content = "ded";
+			var result = extract_all_accept_languages(acc_lang_header_content);
+
+			expect(result).toBeUndefined();
+		});
+
+		it("should be resilient to jibberisch", function () {
 			var acc_lang_header_content = "§$$&de";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
 			expect(result).toBeUndefined();
 		});
 
-		it("should be resilitent to dashes", function () {
+		it("should be resilient to dashes", function () {
 			var acc_lang_header_content = "-";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
 			expect(result).toBeUndefined();
 		});
 		
-		it("should be resilitent to numbers", function () {
+		it("should be resilient to numbers", function () {
 			var acc_lang_header_content = "12364";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
