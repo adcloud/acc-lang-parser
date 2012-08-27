@@ -48,7 +48,7 @@ describe("accept-language http header parser", function () {
 				var acc_lang_header_content = "de, en";
 				var result = extract_all_accept_languages(acc_lang_header_content);
 
-				expect(result.length).toEqual(1);
+				expect(result.length).toEqual(2);
 
 				expect(result[0].language).toEqual("de");
 				expect(result[1].language).toEqual("en");
