@@ -99,51 +99,51 @@ describe("accept-language http header parser", function () {
 			var acc_lang_header_content;
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 		
 		it("should be resilient to empty headers", function () {
 			var acc_lang_header_content = "";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 	});
 
 	describe("in case of invalid headers extract_all_accept_languages", function () {
-		it("should be resilient to chines jibberisch", function () {
+		it("should be resilient to chines jibberisch: 8痂", function () {
 			var acc_lang_header_content = "8痂";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 
 		it("should be resilient to none 2-ALPHA languages like: ded", function () {
 			var acc_lang_header_content = "ded";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 
 		it("should be resilient to jibberisch", function () {
 			var acc_lang_header_content = "§$$&de";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 
-		it("should be resilient to dashes", function () {
+		it("should be resilient to -", function () {
 			var acc_lang_header_content = "-";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 		
 		it("should be resilient to numbers", function () {
 			var acc_lang_header_content = "12364";
 			var result = extract_all_accept_languages(acc_lang_header_content);
 
-			expect(result).toBeUndefined();
+			expect(result).toEqual([]);
 		});
 	});
 });
