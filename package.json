@@ -6,7 +6,7 @@
     "jasmine-node": "1.x.x"
   },
   "engine": ">=node 0.8.4",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/parse-acc-lang.js",
   "scripts": {
     "test": "jasmine-node spec"
