@@ -140,6 +140,34 @@ describe("accept-language http header parser", function () {
 			expect(result).toEqual([]);
 		});
 
+		it("should parse the language even if the locale is invalid", function () {
+			var acc_lang_header_content = "es-ES_tradnl"; // real life case
+			var result = accLangParser.extractAllLangs(acc_lang_header_content);
+
+			expect(result.length).toEqual(1);
+
+			expect(result[0].language).toEqual("es");
+		});
+
+		it("should parse the language even if the locale is a number", function () {
+			var acc_lang_header_content = "es-419"; // real life case
+			var result = accLangParser.extractAllLangs(acc_lang_header_content);
+
+			expect(result.length).toEqual(1);
+
+			expect(result[0].language).toEqual("es");
+		});
+
+		it("should parse following language ranges normaly even if one is not valid like es-419,es;q=0.8", function () {
+			var acc_lang_header_content = "es-419,es;q=0.8"; // real life case
+			var result = accLangParser.extractAllLangs(acc_lang_header_content);
+
+			expect(result.length).toEqual(2);
+
+			expect(result[0].language).toEqual("es");
+			expect(result[1].language).toEqual("es");
+		});
+
 		it("should be resilient to none 2-ALPHA languages like: ded", function () {
 			var acc_lang_header_content = "ded";
 			var result = accLangParser.extractAllLangs(acc_lang_header_content);
