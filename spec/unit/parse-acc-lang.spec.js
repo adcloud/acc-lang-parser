@@ -24,40 +24,52 @@
 var accLangParser = require("lib/parse-acc-lang");
 
 describe("accept-language http header parser", function () {
-	describe("in case of valid headers", function () {
-
-		describe("when only one language is of interest accLangParser.extractFirstLang", function () {
+	describe("for valid headers", function () {
+		describe("header:de", function () {
 			it("should extract the highest ranked language", function () {
 				var acc_lang_header_content = "de";
 				var result = accLangParser.extractFirstLang(acc_lang_header_content);
 				expect(result.language).toEqual("de");
 			});
 
-			it("should not return any locale if not present", function () {
+			it("should not return any locale because its missing", function () {
 				var acc_lang_header_content = "de";
 				var result = accLangParser.extractFirstLang(acc_lang_header_content);
 				expect(result.locale).toBeUndefined();
 			});
+		});
 
-			it("should extract the highest ranked language and locale", function () {
+		describe("header:de-DE", function () {
+			it("should extract the highest ranked language", function () {
 				var acc_lang_header_content = "de-DE";
 				var result = accLangParser.extractFirstLang(acc_lang_header_content);
 				expect(result.language).toEqual("de");
-				expect(result.locale).toEqual("DE");
 			});
 
+			it("should extract the highest ranked locale", function () {
+				var acc_lang_header_content = "de-DE";
+				var result = accLangParser.extractFirstLang(acc_lang_header_content);
+				expect(result.locale).toEqual("DE");
+			});
+		});
+
+		describe("header:DE-DE", function () {
 			it("should ensure that the language is in lower case", function () {
 				var acc_lang_header_content = "DE-DE";
 				var result = accLangParser.extractFirstLang(acc_lang_header_content);
 				expect(result.language).toEqual("de");
 			});
+		});
 
+		describe("header:de-de", function () {
 			it("should ensure that the locale is in upper case", function () {
 				var acc_lang_header_content = "de-de";
 				var result = accLangParser.extractFirstLang(acc_lang_header_content);
 				expect(result.locale).toEqual("DE");
 			});
+		});
 
+		describe("header:*", function () {
 			it("should handle the special any char (*) correctly", function () {
 				var acc_lang_header_content = "*";
 				var result = accLangParser.extractFirstLang(acc_lang_header_content);
@@ -95,7 +107,7 @@ describe("accept-language http header parser", function () {
 				expect(result[1].locale).toEqual("GB");
 			});
 			
-			it("should parse multiple languages with locale and priority accLangParser.extractAllLangs", function () {
+			it("should parse multiple languages with locale and priority accLangParser.extractAllLangs (de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4)", function () {
 				var acc_lang_header_content = "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4";
 				var result = accLangParser.extractAllLangs(acc_lang_header_content);
 
