@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.adcloud.com/waldemarschwan/acc-lang-parser.git"
+    "url": "https://github.com/adcloud/acc-lang-parser.git"
   },
   "keywords": [
     "http",
@@ -21,5 +21,5 @@
     "parser",
     "nodejs"
   ],
-  "license": "BSD"
+  "license": "MIT"
 }
