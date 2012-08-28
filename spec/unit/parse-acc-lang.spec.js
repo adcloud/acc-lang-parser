@@ -21,7 +21,8 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 "use strict";
 
-var accLangParser = require("lib/parse-acc-lang");
+var accLangParser = require("lib/parse-acc-lang")
+	, jasmine = require("jasmine-node");
 
 describe("accept-language http header parser", function () {
 	describe("in case of valid headers", function () {
